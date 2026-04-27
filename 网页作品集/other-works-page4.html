@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>其他作品 - 动画制作</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Alibaba PuHuiTi 3.0", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #000000;
+      font-size: 18px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .back-button:hover {
+      opacity: 0.8;
+    }
+
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    .page-content {
+      padding-top: 0;
+      padding-bottom: 0;
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 100vw;
+    }
+
+    .image-row {
+      display: flex;
+      gap: 0;
+      width: 100vw;
+    }
+
+    .image-container {
+      position: relative;
+      width: 25%;
+      height: 50vh;
+      overflow: hidden;
+    }
+
+    .grid-image,
+    .grid-image-tall {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .image-container:hover .grid-image,
+    .image-container:hover .grid-image-tall {
+      transform: scale(1.05);
+    }
+
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 20px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .image-container:hover .image-overlay {
+      opacity: 1;
+    }
+
+    .overlay-link {
+      color: #ffffff;
+      font-size: 14px;
+      text-decoration: none;
+      text-align: center;
+      word-break: break-all;
+      padding: 0 10px;
+    }
+
+    .image-container:focus-within .image-overlay {
+      opacity: 1;
+    }
+
+    .image-container a:focus {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      backdrop-filter: blur(10px);
+      padding: 16px 40px;
+      z-index: 99;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      color: #000000;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover {
+      background: rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .nav-item.active {
+      background: rgba(0, 0, 0, 0.1);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .back-button {
+        top: 80px;
+        left: 20px;
+        font-size: 16px;
+      }
+      
+      .navbar {
+        padding: 12px 20px;
+      }
+      
+      .nav-container {
+        gap: 12px;
+      }
+      
+      .nav-item {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+
+      .page-content {
+        padding-top: 80px;
+        padding-bottom: 50px;
+      }
+
+      .overlay-link {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="nav-container">
+      <a href="other-works.html" class="nav-item">封面</a>
+      <a href="other-works-page1.html" class="nav-item">犀牛建模</a>
+      <a href="other-works-page2.html" class="nav-item">产品设计1</a>
+      <a href="other-works-page3.html" class="nav-item">产品设计2</a>
+      <a href="other-works-page4.html" class="nav-item active">动画制作</a>
+      <a href="other-works-page5.html" class="nav-item">汽车渲染</a>
+      <a href="other-works-page6.html" class="nav-item">手绘与商单</a>
+    </div>
+  </div>
+  
+  <a href="contents.html" class="back-button">
+    <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    返回作品目录
+  </a>
+  
+  <div class="page-content">
+    <div class="image-grid">
+      <div class="image-row">
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1fWqgYoEBm/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-ynt0kwg.png" alt="动画1" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">布加迪陀飞轮汽车动画</span>
+            </div>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1hy411a7kB/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-uig96sa.png" alt="动画2" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">Emsky飞行汽车汽车动画</span>
+            </div>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1EH4y1p7tr/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-7x0iewj.png" alt="动画3" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">路特斯Eletre汽车动画</span>
+            </div>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1MLi9YFEkL/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-yo5kfrp.png" alt="动画4" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">极星3汽车动画</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="image-row">
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1Rw4m1r7RE/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-amlhvo4.png" alt="动画5" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">三星显示屏产品动画</span>
+            </div>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV13TWTeREJd/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-up4cdw8.png" alt="动画6" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">宾利Mulliner Batur汽车动画</span>
+            </div>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1KbKGzCEhn/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-v1a0ge3.png" alt="动画7" class="grid-image">
+            <div class="image-overlay">
+              <span class="overlay-link">海尔智能随行车伴侣产品动画</span>
+            </div>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="https://www.bilibili.com/video/BV1hv4y1X7YY/" target="_blank" rel="noopener noreferrer">
+            <img src=".figma/image/moc5zxzd-14r3615.png" alt="动画8" class="grid-image grid-image-tall">
+            <div class="image-overlay">
+              <span class="overlay-link">概念车X-Cyber汽车动画</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const pages = [
+      'other-works.html',
+      'other-works-page1.html',
+      'other-works-page2.html',
+      'other-works-page3.html',
+      'other-works-page4.html',
+      'other-works-page5.html',
+      'other-works-page6.html'
+    ];
+
+    const currentPage = pages.indexOf('other-works-page4.html');
+
+    let isScrolling = false;
+    window.addEventListener('wheel', function(e) {
+      if (isScrolling) return;
+      
+      isScrolling = true;
+      
+      if (e.deltaY > 0) {
+        if (currentPage < pages.length - 1) {
+          window.location.href = pages[currentPage + 1];
+        }
+      } else {
+        if (currentPage > 0) {
+          window.location.href = pages[currentPage - 1];
+        }
+      }
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 500);
+    });
+  </script>
+</body>
+</html>
