@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简历 | Curriculum Vitae</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-color: #0077b5;
+      --secondary-color: #00b4d8;
+      --accent-color: #90e0ef;
+      --text-dark: #1a1a2e;
+      --text-light: #4a4a68;
+      --bg-light: #f8fafc;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --gradient-primary: linear-gradient(135deg, #0077b5 0%, #00b4d8 100%);
+      --gradient-accent: linear-gradient(135deg, #90e0ef 0%, #caf0f8 100%);
+    }
+
+    body {
+      font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 高级模糊彩色动效背景 */
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
+    }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+      transition: transform 0.1s ease-out, background 2s ease-out, width 1s ease-out, height 1s ease-out;
+    }
+
+    /* 返回按钮 */
+    .back-button {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-dark);
+      font-size: 18px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      text-decoration: none;
+      z-index: 10;
+    }
+
+    .back-button:hover {
+      opacity: 0.7;
+    }
+
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 头部区域 */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 32px 0;
+    }
+
+    .header-title {
+      font-size: 42px;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+
+    .header-subtitle {
+      font-size: 16px;
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    /* 主要内容区域 */
+    .main-content {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    /* 左侧边栏 */
+    .sidebar {
+      position: sticky;
+      top: 40px;
+      height: fit-content;
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 4px 24px rgba(0, 119, 181, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 119, 181, 0.08);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 119, 181, 0.12);
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 180px;
+      height: 220px;
+      margin: 0 auto 24px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 119, 181, 0.15);
+    }
+
+    .photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .avatar-hint {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+      color: white;
+      font-size: 12px;
+      padding: 24px 8px 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .avatar-wrapper:hover .avatar-hint {
+      opacity: 1;
+    }
+
+    .profile-name {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .profile-title {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .profile-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+      margin: 0 auto 20px;
+    }
+
+    .contact-list {
+      list-style: none;
+      text-align: left;
+      padding: 0 8px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 13px;
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 14px;
+    }
+
+    /* 右侧内容区 */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px rgba(0, 119, 181, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 119, 181, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 119, 181, 0.1);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+                  var(--gradient-accent) border-box;
+      border-bottom: 2px solid transparent;
+    }
+
+    .section-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--gradient-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(0, 119, 181, 0.25);
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* 教育背景 */
+    .education-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .education-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(144, 224, 239, 0.08) 0%, rgba(202, 240, 248, 0.08) 100%);
+      border-radius: 16px;
+      border-left: 4px solid var(--primary-color);
+      transition: transform 0.2s ease;
+    }
+
+    .education-item.clickable {
+      cursor: pointer;
+    }
+
+    .education-item.clickable:hover {
+      transform: translateX(4px);
+    }
+
+    .education-info h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .education-item.clickable h4 {
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .education-item.clickable h4:hover {
+      color: var(--primary-color);
+    }
+
+    .education-info p {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .education-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary-color);
+      white-space: nowrap;
+      align-self: center;
+      padding: 6px 14px;
+      background: rgba(0, 119, 181, 0.08);
+      border-radius: 20px;
+    }
+
+    /* 双列布局 */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .column-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent-color);
+    }
+
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .experience-item {
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(144, 224, 239, 0.06) 0%, rgba(202, 240, 248, 0.06) 100%);
+      border-radius: 12px;
+      transition: transform 0.2s ease;
+      cursor: default;
+    }
+
+    .experience-item.clickable {
+      cursor: pointer;
+    }
+
+    .experience-item.clickable:hover {
+      transform: translateX(4px);
+      background: linear-gradient(135deg, rgba(0, 119, 181, 0.1) 0%, rgba(0, 180, 216, 0.1) 100%);
+    }
+
+    .experience-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: linear-gradient(135deg, #0077b5 0%, #00b4d8 100%);
+      color: white;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 12px;
+      margin-top: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .experience-item.clickable .experience-tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+    }
+
+    .experience-company {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .experience-position {
+      font-size: 12px;
+      color: var(--primary-color);
+      margin-bottom: 6px;
+    }
+
+    .experience-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    /* 弹出框样式 */
+    .detail-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .detail-popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-content {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 560px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 119, 181, 0.2);
+    }
+
+    .detail-popup.active .popup-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .popup-close:hover {
+      background: rgba(0, 0, 0, 0.1);
+      transform: rotate(90deg);
+    }
+
+    .popup-close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .popup-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      padding-right: 40px;
+    }
+
+    .popup-subtitle {
+      font-size: 13px;
+      color: var(--primary-color);
+      margin-bottom: 24px;
+    }
+
+    .popup-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, #0077b5 0%, #00b4d8 100%);
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    .popup-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .popup-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    .popup-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(135deg, #0077b5 0%, #00b4d8 100%);
+      border-radius: 50%;
+    }
+
+    .popup-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 荣誉列表 */
+    .honors-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .honor-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      background: linear-gradient(135deg, rgba(0, 119, 181, 0.04) 0%, rgba(0, 180, 216, 0.04) 100%);
+      border-radius: 10px;
+      font-size: 12px;
+      color: var(--text-dark);
+      transition: all 0.2s ease;
+    }
+
+    .honor-item:hover {
+      background: linear-gradient(135deg, rgba(0, 119, 181, 0.08) 0%, rgba(0, 180, 216, 0.08) 100%);
+      transform: translateX(4px);
+    }
+
+    .honor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 900px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .profile-card {
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .honors-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      .header-title {
+        font-size: 32px;
+      }
+
+      .education-item {
+        grid-template-columns: 1fr;
+      }
+
+      .education-date {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-animation"></div>
+  
+  <a href="index.html" class="back-button">
+    <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    返回封面
+  </a>
+  
+  <div class="container">
+    <header class="header">
+      <h1 class="header-title">简历</h1>
+      <p class="header-subtitle">Curriculum Vitae</p>
+    </header>
+    
+    <div class="main-content">
+      <aside class="sidebar">
+        <div class="profile-card" onclick="window.location.href='contents.html'">
+          <div class="avatar-wrapper">
+            <img src=".figma/image/半身白底像.jpg" alt="黄俊德" class="photo">
+            <div class="avatar-hint">点击进入作品目录</div>
+          </div>
+          <h2 class="profile-name">黄俊德 · Jointek</h2>
+          <p class="profile-title">工业产品设计 · 3D设计 · 动画设计</p>
+          <div class="profile-divider"></div>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <span class="contact-icon">📞</span>
+              <span>18566402338</span>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon">✉️</span>
+              <span>2694529167@qq.com</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+      
+      <div class="content-area">
+        <section class="section-card">
+          <div class="section-header">
+            <div class="section-icon">🎓</div>
+            <h3 class="section-title">教育背景</h3>
+          </div>
+          <div class="education-grid">
+            <div class="education-item clickable" onclick="window.open('http://www.design.ecnu.edu.cn/', '_blank')">
+              <div class="education-info">
+                <h4>华东师范大学 · 产品设计 · 全日制专业硕士</h4>
+                <p>2023年大三期间，获得校内推免资格，成功推荐免试攻读华东师范大学研究生，研一期间获校级研究生特等奖学金</p>
+              </div>
+              <span class="education-date">2024.09 ~ 2027.06</span>
+            </div>
+            <div class="education-item clickable" onclick="window.open('https://yssjxy.gdut.edu.cn/', '_blank')">
+              <div class="education-info">
+                <h4>广东工业大学 · 工业设计 · 本科</h4>
+                <p>专业课程：运动（仿生）设计，参数化设计，信息架构设计，设计符号学，可用性工程，设计表现，计算机三维辅助设计，工业设计史等</p>
+              </div>
+              <span class="education-date">2020.09 ~ 2024.06</span>
+            </div>
+          </div>
+        </section>
+        
+        <section class="section-card">
+          <div class="section-header">
+            <div class="section-icon">💼</div>
+            <h3 class="section-title">实习经历</h3>
+          </div>
+          <div class="two-column-grid">
+            <div class="experience-list">
+              <div class="experience-item clickable" onclick="showPorscheDetail()">
+                <p class="experience-company">保时捷（上海）数字科技有限公司</p>
+                <p class="experience-position">User Experience · 3D Motion & Design Intern</p>
+                <p class="experience-date">2025.10 ~ 2026.04</p>
+                <span class="experience-tag">点击查看详情</span>
+              </div>
+              <div class="experience-item clickable" onclick="showGACStudioDetail()">
+                <p class="experience-company">广汽上海前瞻设计工作室</p>
+                <p class="experience-position">前瞻设计实习生</p>
+                <p class="experience-date">2025.03 ~ 2025.07</p>
+                <span class="experience-tag">点击查看详情</span>
+              </div>
+              <div class="experience-item clickable" onclick="showGACResearchDetail()">
+                <p class="experience-company">广汽研究院</p>
+                <p class="experience-position">概念与造型设计中心 · 产品化设计实习生</p>
+                <p class="experience-date">2023.10 ~ 2024.04</p>
+                <span class="experience-tag">点击查看详情</span>
+              </div>
+            </div>
+            <div class="experience-list">
+              <div class="experience-item clickable" onclick="showNissanDetail()">
+                <p class="experience-company">日产（上海）汽车设计有限公司</p>
+                <p class="experience-position">Visual Group · Visualization Design Intern</p>
+                <p class="experience-date">2023.07 ~ 2023.09</p>
+                <span class="experience-tag">点击查看详情</span>
+              </div>
+              <div class="experience-item clickable" onclick="showSAICDetail()">
+                <p class="experience-company">上汽集团创新研究开发总院</p>
+                <p class="experience-position">前瞻可视化设计部 · 汽车可视化实习生</p>
+                <p class="experience-date">2022.07 ~ 2022.10</p>
+                <span class="experience-tag">点击查看详情</span>
+              </div>
+              <div class="experience-item clickable" onclick="showSCIDDetail()">
+                <p class="experience-company">广东省华南工业设计院</p>
+                <p class="experience-position">广州设计中心 · 工业设计实习生</p>
+                <p class="experience-date">2022.03 ~ 2022.06</p>
+                <span class="experience-tag">点击查看详情</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section class="section-card">
+          <div class="section-header">
+            <div class="section-icon">💡</div>
+            <h3 class="section-title">项目经历</h3>
+          </div>
+          <div class="project-list">
+            <div class="experience-item clickable" onclick="showStudioProjectDetail()">
+              <p class="experience-company">自创工作室 · 建模、渲染、动画、产品设计</p>
+              <p class="experience-position">工业设计师、动画师</p>
+              <p class="experience-date">2020.10 ~ 至今</p>
+              <span class="experience-tag">点击查看详情</span>
+            </div>
+            <div class="experience-item clickable" onclick="showShoeMachineProjectDetail()">
+              <p class="experience-company">智能共享洗鞋机设计 · 校企合作项目</p>
+              <p class="experience-position">第二负责人/工业设计师</p>
+              <p class="experience-date">2024.10 ~ 2025.09</p>
+              <span class="experience-tag">点击查看详情</span>
+            </div>
+            <div class="experience-item clickable" onclick="showArmProjectDetail()">
+              <p class="experience-company">可拆卸式医疗康复机械臂设计</p>
+              <p class="experience-position">工业设计师</p>
+              <p class="experience-date">2021.03 ~ 2022.12</p>
+              <span class="experience-tag">点击查看详情</span>
+            </div>
+          </div>
+        </section>
+        
+        <section class="section-card">
+          <div class="section-header">
+            <div class="section-icon">🏆</div>
+            <h3 class="section-title">获奖&荣誉</h3>
+          </div>
+          <div class="honors-grid">
+            <div class="honor-item"><span class="honor-dot"></span>2025 红点概念设计奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2025 华东师范大学研究生特等奖学金</div>
+            <div class="honor-item"><span class="honor-dot"></span>2025 美国 MUSE 设计奖 金奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2025 意大利 A' Design 设计奖 铜奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>第18届中国五金产品国际工业设计大赛优秀奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2023年"米兰设计周"师生优秀作品展全国二等奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2023年广东工业大学优秀学生干部奖学金</div>
+            <div class="honor-item"><span class="honor-dot"></span>第十届上汽设计国际挑战赛入围奖（40强）</div>
+            <div class="honor-item"><span class="honor-dot"></span>2022年广东工业大学优秀学生一等奖学金</div>
+            <div class="honor-item"><span class="honor-dot"></span>第11届广东省"省长杯"工业设计大赛优秀奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2022年"互联网+"创新创业大赛广东省银奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2022年iCAN全国大学生创新创业大赛三等奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2022年广东省高等学校大学生工业设计大赛一等奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2021年"东莞杯"国际工业设计大赛金奖</div>
+            <div class="honor-item"><span class="honor-dot"></span>2022年InDare创新鼓励一等奖学金</div>
+            <div class="honor-item"><span class="honor-dot"></span>2024年广东工业大学艺术与设计学院优秀毕业生</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // 预设的蓝绿色系色彩范围
+    const colors = [
+      'linear-gradient(135deg, #65b9ff, #007fb5)',
+      'linear-gradient(135deg, #30ff9e, #008e55)',
+      'linear-gradient(135deg, #4ecdc4, #45b7d1)',
+      'linear-gradient(135deg, #00c9ff, #92fe9d)',
+      'linear-gradient(135deg, #a8edea, #fed6e3)',
+      'linear-gradient(135deg, #84fab0, #8fd3f4)'
+    ];
+
+    // 创建多个背景模糊圆点
+    const blobCount = 5;
+    const backgroundAnimation = document.querySelector('.background-animation');
+    
+    // 清空现有的圆点
+    backgroundAnimation.innerHTML = '';
+    
+    // 创建新的圆点
+    for (let i = 0; i < blobCount; i++) {
+      const blob = document.createElement('div');
+      blob.classList.add('bg-blob');
+      
+      // 随机初始位置
+      const initialX = Math.random() * 100;
+      const initialY = Math.random() * 100;
+      
+      // 随机初始大小
+      const size = 300 + Math.random() * 300;
+      
+      // 随机初始颜色
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      
+      blob.style.width = `${size}px`;
+      blob.style.height = `${size}px`;
+      blob.style.left = `${initialX}%`;
+      blob.style.top = `${initialY}%`;
+      blob.style.background = color;
+      
+      // 存储初始位置和速度
+      blob.dataset.x = initialX;
+      blob.dataset.y = initialY;
+      blob.dataset.speedX = (Math.random() - 0.5) * 0.1;
+      blob.dataset.speedY = (Math.random() - 0.5) * 0.1;
+      
+      backgroundAnimation.appendChild(blob);
+    }
+
+    // 鼠标位置跟踪
+    let mouseX = 0.5;
+    let mouseY = 0.5;
+    
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX / window.innerWidth;
+      mouseY = e.clientY / window.innerHeight;
+    });
+
+    // 动画循环
+    function animate() {
+      const blobs = document.querySelectorAll('.bg-blob');
+      
+      blobs.forEach((blob, index) => {
+        // 获取当前位置
+        let x = parseFloat(blob.dataset.x);
+        let y = parseFloat(blob.dataset.y);
+        
+        // 获取速度
+        let speedX = parseFloat(blob.dataset.speedX);
+        let speedY = parseFloat(blob.dataset.speedY);
+        
+        // 鼠标位置影响
+        const mouseInfluence = 0.02 * (index + 1);
+        const targetX = x + (mouseX * 100 - x) * mouseInfluence;
+        const targetY = y + (mouseY * 100 - y) * mouseInfluence;
+        
+        // 平滑过渡到目标位置
+        x += (targetX - x) * 0.05;
+        y += (targetY - y) * 0.05;
+        
+        // 边界检查和反弹
+        if (x < 0 || x > 100) {
+          speedX *= -1;
+        }
+        if (y < 0 || y > 100) {
+          speedY *= -1;
+        }
+        
+        // 随机移动
+        x += speedX;
+        y += speedY;
+        
+        // 随机大小变化
+        const size = 300 + Math.sin(Date.now() * 0.001 + index) * 100;
+        
+        // 随机颜色变化（偶尔）
+        if (Math.random() < 0.001) {
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          blob.style.background = color;
+        }
+        
+        // 更新位置和速度
+        blob.dataset.x = x;
+        blob.dataset.y = y;
+        blob.dataset.speedX = speedX;
+        blob.dataset.speedY = speedY;
+        
+        // 应用变换
+        blob.style.transform = `translate(${x - 50}%, ${y - 50}%)`;
+        blob.style.width = `${size}px`;
+        blob.style.height = `${size}px`;
+      });
+      
+      requestAnimationFrame(animate);
+    }
+
+    // 启动动画
+    animate();
+    
+    // 保时捷详情弹出框
+    const porscheDetailPopup = document.createElement('div');
+    porscheDetailPopup.className = 'detail-popup';
+    porscheDetailPopup.id = 'porscheDetailPopup';
+    porscheDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hidePorscheDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">保时捷（上海）数字科技有限公司</h3>
+        <p class="popup-subtitle">User Experience · 3D Motion & Design Intern</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>负责保时捷数字座舱HMI界面的3D主题设计，涵盖前期情绪版整理、车辆模型处理、工程文件完善、场景和灯光设计等多个重要流程；</li>
+          <li>使用ComfyUI等AIGC工具，复刻"AI无限画布"概念，并基于虚幻引擎制作实时交互运行的Demo，为保时捷智能座舱交互提供新思路；</li>
+          <li>设计高质量动画以及交互逻辑，向用户介绍保时捷911 GT3中各个经典部件的发展历史，并应用于车机系统和官网中，助力延续品牌精神。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(porscheDetailPopup);
+
+    // 点击遮罩关闭弹出框
+    porscheDetailPopup.addEventListener('click', function(e) {
+      if (e.target === porscheDetailPopup) {
+        hidePorscheDetail();
+      }
+    });
+
+    // 按ESC关闭弹出框
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        hidePorscheDetail();
+      }
+    });
+
+    function showPorscheDetail() {
+      document.getElementById('porscheDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hidePorscheDetail() {
+      document.getElementById('porscheDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 广汽研究院详情弹出框
+    const gacResearchDetailPopup = document.createElement('div');
+    gacResearchDetailPopup.className = 'detail-popup';
+    gacResearchDetailPopup.id = 'gacResearchDetailPopup';
+    gacResearchDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideGACResearchDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">广汽研究院</h3>
+        <p class="popup-subtitle">概念与造型设计中心 · 产品化设计实习生</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>负责广汽旗下汽车品牌产品化设计的全流程，包括前期模型处理、分件、面数优化和材质调整，以及后期的效果图和动画制作；</li>
+          <li>完成传祺GS3、GS4、影豹和Aion V、Hyptec GT等多个广汽旗下车型的效果图制作，参与效果图意象方案竞标与车型换代设计方案的评选；</li>
+          <li>利用虚幻引擎开发汽车选装配置器，实现通过VR设备操控汽车的活动部件、选配颜色和套件方案等，并应用于设计中心的实际评审项目中。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(gacResearchDetailPopup);
+
+    gacResearchDetailPopup.addEventListener('click', function(e) {
+      if (e.target === gacResearchDetailPopup) {
+        hideGACResearchDetail();
+      }
+    });
+
+    function showGACResearchDetail() {
+      document.getElementById('gacResearchDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideGACResearchDetail() {
+      document.getElementById('gacResearchDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 日产详情弹出框
+    const nissanDetailPopup = document.createElement('div');
+    nissanDetailPopup.className = 'detail-popup';
+    nissanDetailPopup.id = 'nissanDetailPopup';
+    nissanDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideNissanDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">日产（上海）汽车设计有限公司</h3>
+        <p class="popup-subtitle">Visual Group · Visualization Design Intern</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>在前期设计过程和内外饰设计师对接汽车造型特征与创意想法，构思镜头、灯光和故事叙述方式，在效果图、动画和VR场景中突出设计造型；</li>
+          <li>利用各种可视化软件（虚幻引擎、Blender、VRED）表达汽车造型，根据前期构思完成效果图和影片制作，供日产内外部造型汇报使用；</li>
+          <li>实习期间参与英菲尼迪和日产的多款概念车型和量产车型的可视化工作，独立完成多套效果图和动画，助力造型评审工作。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(nissanDetailPopup);
+
+    nissanDetailPopup.addEventListener('click', function(e) {
+      if (e.target === nissanDetailPopup) {
+        hideNissanDetail();
+      }
+    });
+
+    function showNissanDetail() {
+      document.getElementById('nissanDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideNissanDetail() {
+      document.getElementById('nissanDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 广汽上海前瞻设计工作室详情弹出框
+    const gacStudioDetailPopup = document.createElement('div');
+    gacStudioDetailPopup.className = 'detail-popup';
+    gacStudioDetailPopup.id = 'gacStudioDetailPopup';
+    gacStudioDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideGACStudioDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">广汽上海前瞻设计工作室</h3>
+        <p class="popup-subtitle">前瞻设计实习生</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>全程参与广汽上海前瞻设计工作室的设计工作，涵盖前期的模型处理、分件设计、面数优化及材质调校，以及后期的效果图制作与动画创作；</li>
+          <li>已完成广汽旗下埃安、昊铂品牌的汽车视觉效果设计，并参与了设计方案的评选工作。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(gacStudioDetailPopup);
+
+    gacStudioDetailPopup.addEventListener('click', function(e) {
+      if (e.target === gacStudioDetailPopup) {
+        hideGACStudioDetail();
+      }
+    });
+
+    function showGACStudioDetail() {
+      document.getElementById('gacStudioDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideGACStudioDetail() {
+      document.getElementById('gacStudioDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 上汽集团创新研究开发总院详情弹出框
+    const saicDetailPopup = document.createElement('div');
+    saicDetailPopup.className = 'detail-popup';
+    saicDetailPopup.id = 'saicDetailPopup';
+    saicDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideSAICDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">上汽集团创新研究开发总院</h3>
+        <p class="popup-subtitle">前瞻可视化设计部 · 汽车可视化实习生</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>通过上汽设计国际挑战赛可视化分赛道入围，进入可视化部门完成决赛可视化作品（汽车动画、官图渲染）；</li>
+          <li>参与汽车官图制作、活动摄影工作，进行动画前期构思、后期合成、最终评审等设计任务；</li>
+          <li>实习期间参与设计大赛摄影与上汽名爵某量产车的官图制作，同时本人决赛作品在挑战赛中获奖。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(saicDetailPopup);
+
+    saicDetailPopup.addEventListener('click', function(e) {
+      if (e.target === saicDetailPopup) {
+        hideSAICDetail();
+      }
+    });
+
+    function showSAICDetail() {
+      document.getElementById('saicDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideSAICDetail() {
+      document.getElementById('saicDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 广东省华南工业设计院详情弹出框
+    const scidDetailPopup = document.createElement('div');
+    scidDetailPopup.className = 'detail-popup';
+    scidDetailPopup.id = 'scidDetailPopup';
+    scidDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideSCIDDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">广东省华南工业设计院</h3>
+        <p class="popup-subtitle">广州设计中心 · 工业设计实习生</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>负责完成用户调研，竞品分析，产品定位等前期核心任务，包括桌面调研、问卷设计与数据分析、用户现场访谈与总结、竞品拆解与实地考察；</li>
+          <li>参与设计工作，把握每一个产品的设计方向和设计风格，协助完成对甲方企业的设计提案、手绘、建模、效果图渲染、版面设计等设计任务；</li>
+          <li>实习期间参与 DPI 印花机床外观设计、网纳电竞桌椅收纳套装、广日智慧电梯等设计项目多项，均已落地生产，积累了全流程工业设计经验。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(scidDetailPopup);
+
+    scidDetailPopup.addEventListener('click', function(e) {
+      if (e.target === scidDetailPopup) {
+        hideSCIDDetail();
+      }
+    });
+
+    function showSCIDDetail() {
+      document.getElementById('scidDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideSCIDDetail() {
+      document.getElementById('scidDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 自创工作室项目详情弹出框
+    const studioProjectDetailPopup = document.createElement('div');
+    studioProjectDetailPopup.className = 'detail-popup';
+    studioProjectDetailPopup.id = 'studioProjectDetailPopup';
+    studioProjectDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideStudioProjectDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">自创工作室</h3>
+        <p class="popup-subtitle">建模、渲染、动画、产品设计 · 工业设计师、动画师</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>与校友和同学共同创立线上设计工作室，在小红书、抖音、B站、站酷、普象、Behance等平台运营自媒体，以便发布作品并联系客户。专注于提供工业产品设计、视觉设计、三维建模和动画制作等服务；</li>
+          <li>在项目中，担任工业设计师和动画师，负责设计和实现多个项目的核心需求。通过创新设计和先进技术应用，成功提升了客户满意度和项目交付质量；</li>
+          <li>从2020年成立至今已完成数百个设计项目，获得数百名客户的一致好评，个人通过接单所得收入累计超过20万元。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(studioProjectDetailPopup);
+
+    studioProjectDetailPopup.addEventListener('click', function(e) {
+      if (e.target === studioProjectDetailPopup) {
+        hideStudioProjectDetail();
+      }
+    });
+
+    function showStudioProjectDetail() {
+      document.getElementById('studioProjectDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideStudioProjectDetail() {
+      document.getElementById('studioProjectDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 智能共享洗鞋机设计项目详情弹出框
+    const shoeMachineProjectDetailPopup = document.createElement('div');
+    shoeMachineProjectDetailPopup.className = 'detail-popup';
+    shoeMachineProjectDetailPopup.id = 'shoeMachineProjectDetailPopup';
+    shoeMachineProjectDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideShoeMachineProjectDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">智能共享洗鞋机设计 · 校企合作项目</h3>
+        <p class="popup-subtitle">第二负责人/工业设计师</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>该项目与海尔上海研发中心合作，以"桌面式智能洗涤设备"为主题，立足鞋履清洁需求，设计以运动人士为主要用户的共享智能洗鞋机；</li>
+          <li>本人负责前期调研中的运动用户研究、洗鞋与消毒技术调研部分，并主导后期造型推演、结构设计、CMF设计、模型和动画制作全流程；</li>
+          <li>项目获得2025年红点概念设计奖、2025意大利A' Design设计奖铜奖、2025美国MUSE设计奖金奖等国际奖项，项目成功转化商业落地。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(shoeMachineProjectDetailPopup);
+
+    shoeMachineProjectDetailPopup.addEventListener('click', function(e) {
+      if (e.target === shoeMachineProjectDetailPopup) {
+        hideShoeMachineProjectDetail();
+      }
+    });
+
+    function showShoeMachineProjectDetail() {
+      document.getElementById('shoeMachineProjectDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideShoeMachineProjectDetail() {
+      document.getElementById('shoeMachineProjectDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 可拆卸式医疗康复机械臂设计项目详情弹出框
+    const armProjectDetailPopup = document.createElement('div');
+    armProjectDetailPopup.className = 'detail-popup';
+    armProjectDetailPopup.id = 'armProjectDetailPopup';
+    armProjectDetailPopup.innerHTML = `
+      <div class="popup-content">
+        <button class="popup-close" onclick="hideArmProjectDetail()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h3 class="popup-title">可拆卸式医疗康复机械臂设计</h3>
+        <p class="popup-subtitle">工业设计师</p>
+        <div class="popup-divider"></div>
+        <ul class="popup-list">
+          <li>项目立足轻量化上肢康复领域，和本校创新创业学院合作研发，设计了符合人体工学的可拆卸式上肢医疗康复机械臂；</li>
+          <li>项目邀请了12位患者和2位康复医生进行测试，最终获得广东省工伤康复医院肯定，在医院康复中心的各种病患康复测试中达到标准水平；</li>
+          <li>负责项目中的患者研究、外壳设计、部分机械结构设计、可视化设计（PPT排版、动画、展板制作），主导机械臂造型和部分结构的迭代优化；</li>
+          <li>项目获得2021年东莞杯国际工业设计大赛金奖、"互联网+"广东省铜奖，国家级创新创业项目，多份实用新型专利与外观设计专利授权。</li>
+        </ul>
+      </div>
+    `;
+    document.body.appendChild(armProjectDetailPopup);
+
+    armProjectDetailPopup.addEventListener('click', function(e) {
+      if (e.target === armProjectDetailPopup) {
+        hideArmProjectDetail();
+      }
+    });
+
+    function showArmProjectDetail() {
+      document.getElementById('armProjectDetailPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideArmProjectDetail() {
+      document.getElementById('armProjectDetailPopup').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  </script>
+</body>
+</html>
