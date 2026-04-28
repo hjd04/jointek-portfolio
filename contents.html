@@ -114,27 +114,44 @@
 
     /* 作品网格 */
     .works-grid {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 20px;
       margin-bottom: 60px;
       padding: 0 15px;
       max-width: 1400px;
       margin-left: auto;
       margin-right: auto;
+      width: 100%;
     }
 
     /* 作品卡片 */
     .work-card {
-      flex: 1;
-      margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       transition: transform 0.3s ease;
-      min-width: 300px;
+      min-width: 0;
+    }
+
+    /* 响应式网格列数 */
+    @media (max-width: 1400px) {
+      .works-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .works-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .work-card:hover {
@@ -273,15 +290,6 @@
         font-size: 20px;
       }
 
-      .works-grid {
-        flex-wrap: wrap;
-      }
-      
-      .work-card {
-        flex: 0 0 calc(50% - 20px);
-        margin: 10px;
-      }
-
       .work-image {
         height: 200px;
       }
@@ -292,17 +300,6 @@
 
       .award-logo {
         height: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .work-card {
-        flex: 0 0 100%;
-        margin: 10px 0;
-      }
-      
-      .work-image {
-        height: 220px;
       }
     }
 

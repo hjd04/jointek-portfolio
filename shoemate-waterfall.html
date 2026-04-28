@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>洗鞋机项目 - 瀑布式浏览</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Alibaba PuHuiTi 3.0", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* 返回按钮 */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #000000;
+      font-size: 18px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      text-decoration: none;
+      z-index: 10;
+    }
+
+    .back-button:hover {
+      opacity: 0.7;
+    }
+
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* 返回按钮容器 - 固定不动的模糊背景 */
+    .back-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 40px;
+      z-index: 10;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .back-container {
+        padding: 15px 20px;
+      }
+    }
+
+    /* 瀑布式图片容器 */
+    .waterfall-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 20px 40px;
+      gap: 20px;
+    }
+
+    .waterfall-image {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .back-button {
+        top: 20px;
+        left: 20px;
+        font-size: 16px;
+      }
+
+      .waterfall-container {
+        padding: 70px 16px 30px;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 返回按钮容器 -->
+  <div class="back-container">
+    <a href="contents.html" class="back-button">
+      <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      返回作品目录
+    </a>
+  </div>
+  
+  <!-- 瀑布式图片 -->
+  <div class="waterfall-container">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机1.webp" alt="洗鞋机1" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 2.webp" alt="洗鞋机2" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 3.webp" alt="洗鞋机3" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 4.webp" alt="洗鞋机4" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 5.webp" alt="洗鞋机5" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 6.webp" alt="洗鞋机6" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 7.webp" alt="洗鞋机7" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 8.webp" alt="洗鞋机8" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 9.webp" alt="洗鞋机9" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/洗鞋机 10.webp" alt="洗鞋机10" class="waterfall-image">
+  </div>
+</body>
+</html>

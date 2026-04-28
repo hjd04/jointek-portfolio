@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MRXA机械臂项目 - 瀑布式浏览</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Alibaba PuHuiTi 3.0", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      background-color: #193251;
+      color: #ffffff;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      text-decoration: none;
+      z-index: 10;
+    }
+
+    .back-button:hover {
+      opacity: 0.7;
+    }
+
+    .back-arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    .back-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 40px;
+      z-index: 10;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(25, 50, 81, 0.7);
+    }
+
+    @media (max-width: 768px) {
+      .back-container {
+        padding: 15px 20px;
+      }
+    }
+
+    .waterfall-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 20px 40px;
+      gap: 20px;
+    }
+
+    .waterfall-image {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .waterfall-container {
+        padding: 70px 16px 30px;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="back-container">
+    <a href="contents.html" class="back-button">
+      <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      返回作品目录
+    </a>
+  </div>
+  
+  <div class="waterfall-container">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/机械臂 1.webp" alt="机械臂1" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/机械臂 2.webp" alt="机械臂2" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/机械臂 3.webp" alt="机械臂3" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/机械臂 4.webp" alt="机械臂4" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/机械臂 5.webp" alt="机械臂5" class="waterfall-image">
+    <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/机械臂 6.webp" alt="机械臂6" class="waterfall-image">
+  </div>
+</body>
+</html>

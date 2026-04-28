@@ -59,13 +59,14 @@
     .background-image {
       position: fixed;
       top: 0;
-      right: 0;
-      width: 60%;
+      left: 0;
+      width: 100%;
+      min-width: 100vw;
       height: 100%;
       z-index: -1;
       background-image: url('https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/mobgmx0y-5i7l98e.webp');
       background-size: cover;
-      background-position: center;
+      background-position: left center;
       background-repeat: no-repeat;
       opacity: 1;
     }
@@ -457,6 +458,80 @@
         align-items: flex-start;
       }
     }
+
+    /* 竖屏模式 - 隐藏顶部导航 */
+    @media (orientation: portrait) {
+      .navbar {
+        display: none !important;
+      }
+
+      .container {
+        padding: 80px 0 100px;
+      }
+    }
+
+    /* 竖屏模式模糊覆盖层 */
+    .portrait-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (orientation: portrait) {
+      .portrait-overlay {
+        display: block;
+      }
+    }
+
+    /* 底部查看项目按钮 */
+    .view-project-button {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: transparent;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .view-project-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (orientation: portrait) {
+      .view-project-button {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .view-project-button.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -465,6 +540,9 @@
   
   <!-- 背景图 -->
   <div class="background-image"></div>
+  
+  <!-- 竖屏模式模糊覆盖层 -->
+  <div class="portrait-overlay"></div>
   
   <!-- 渐变遮罩 -->
   <div class="gradient-overlay"></div>
@@ -553,6 +631,11 @@
       </div>
     </div>
   </div>
+  
+  <!-- 底部查看项目按钮 -->
+  <button class="view-project-button" onclick="window.location.href='mrxa-waterfall.html'">
+    查看该项目
+  </button>
   
   <!-- 页面加载动画 -->
   <script>
@@ -647,6 +730,10 @@
 
     let isScrolling = false;
     window.addEventListener('wheel', function(e) {
+      if (window.matchMedia('(orientation: portrait)').matches) {
+        return;
+      }
+      
       if (isScrolling) return;
       
       isScrolling = true;
@@ -665,6 +752,33 @@
         isScrolling = false;
       }, 500);
     });
+  </script>
+  
+  <!-- 竖屏模式滚动到底部显示按钮 -->
+  <script>
+    const viewButton = document.querySelector('.view-project-button');
+    
+    function checkScroll() {
+      const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+      
+      if (isPortrait) {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        
+        if (scrollTop + clientHeight >= scrollHeight - 50) {
+          viewButton.classList.add('visible');
+        } else {
+          viewButton.classList.remove('visible');
+        }
+      } else {
+        viewButton.classList.remove('visible');
+      }
+    }
+    
+    window.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
+    checkScroll();
   </script>
 </body>
 </html>

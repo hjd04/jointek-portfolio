@@ -48,6 +48,26 @@
       background-image: linear-gradient(90deg, #335f87cc 0%, #5c7f9e00 98.1%);
     }
 
+    /* 竖屏模式模糊覆盖层 */
+    .portrait-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (orientation: portrait) {
+      .portrait-overlay {
+        display: block;
+      }
+    }
+
     .container {
       position: relative;
       z-index: 1;
@@ -573,48 +593,46 @@
       }
     }
 
-    /* 继续上滑提示 - 竖屏模式 */
-    .scroll-hint {
+    /* 底部查看项目按钮 */
+    .view-project-button {
       display: none;
       position: fixed;
-      bottom: 40px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 100;
-      text-align: center;
+      z-index: 9999;
+      background: transparent;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       color: #ffffff;
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .scroll-hint.visible {
-      opacity: 1;
-    }
-
-    .scroll-hint-arrow {
-      width: 24px;
-      height: 24px;
-      margin: 8px auto 0;
-      animation: bounce-up 1.5s infinite;
-    }
-
-    @keyframes bounce-up {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-8px);
-      }
-      60% {
-        transform: translateY(-4px);
-      }
+    .view-project-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
     }
 
     @media (orientation: portrait) {
-      .scroll-hint {
+      .view-project-button {
         display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .view-project-button.visible {
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   </style>
@@ -622,6 +640,9 @@
 <body>
   <!-- 背景图 -->
   <div class="background-image"></div>
+  
+  <!-- 竖屏模式模糊覆盖层 -->
+  <div class="portrait-overlay"></div>
   
   <!-- 渐变遮罩 -->
   <div class="gradient-overlay"></div>
@@ -720,13 +741,10 @@
     </div>
   </div>
   
-  <!-- 继续上滑提示 -->
-  <div class="scroll-hint" id="scrollHint">
-    <span>继续上滑查看该项目</span>
-    <svg class="scroll-hint-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 5L12 19M12 5L6 11M12 5L18 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
+  <!-- 底部查看项目按钮 -->
+  <button class="view-project-button" onclick="window.location.href='shoemate-waterfall.html'">
+    查看该项目
+  </button>
   
   <script>
     // 页面加载动画
@@ -768,12 +786,14 @@
       // 鼠标滚轮事件监听
       let isScrolling = false;
       window.addEventListener('wheel', function(e) {
+        // 竖屏模式下不触发滚轮切换页面
+        if (window.matchMedia('(orientation: portrait)').matches) {
+          return;
+        }
+        
         if (isScrolling) return;
         
         isScrolling = true;
-        
-        // 检测是否为竖屏模式
-        const isPortrait = window.matchMedia('(orientation: portrait)').matches && window.innerWidth <= 900;
         
         if (e.deltaY > 0) {
           // 向下滚动 - 下一页
@@ -781,17 +801,9 @@
             window.location.href = pages[currentPage + 1];
           }
         } else {
-          // 向上滚动
-          if (isPortrait) {
-            // 竖屏模式下：向上滚动跳转到下一页（shoemate-page1.html）
-            if (currentPage < pages.length - 1) {
-              window.location.href = pages[currentPage + 1];
-            }
-          } else {
-            // 横屏模式：向上滚动跳转到上一页
-            if (currentPage > 0) {
-              window.location.href = pages[currentPage - 1];
-            }
+          // 向上滚动 - 上一页
+          if (currentPage > 0) {
+            window.location.href = pages[currentPage - 1];
           }
         }
 
@@ -802,32 +814,31 @@
       });
     </script>
     
-    <!-- 竖屏模式滚动检测 -->
+    <!-- 竖屏模式滚动到底部显示按钮 -->
     <script>
-      const scrollHint = document.getElementById('scrollHint');
-      let scrollHintShown = false;
+      const viewButton = document.querySelector('.view-project-button');
       
-      function isMobilePortrait() {
-        return window.matchMedia('(orientation: portrait)').matches && window.innerWidth <= 900;
+      function checkScroll() {
+        const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+        
+        if (isPortrait) {
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          const scrollHeight = document.documentElement.scrollHeight;
+          const clientHeight = document.documentElement.clientHeight;
+          
+          if (scrollTop + clientHeight >= scrollHeight - 50) {
+            viewButton.classList.add('visible');
+          } else {
+            viewButton.classList.remove('visible');
+          }
+        } else {
+          viewButton.classList.remove('visible');
+        }
       }
       
-      window.addEventListener('scroll', function() {
-        if (!isMobilePortrait()) return;
-        
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
-        
-        // 当滚动到距离底部100px以内时显示提示
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-          scrollHint.classList.add('visible');
-          scrollHintShown = true;
-        } else {
-          if (scrollHintShown) {
-            scrollHint.classList.remove('visible');
-          }
-        }
-      });
+      window.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+      checkScroll();
     </script>
   </body>
 </html>
