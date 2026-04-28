@@ -92,6 +92,20 @@
       margin-left: 10px;
     }
 
+    /* 标题行容器 */
+    .title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-left: 10px;
+      margin-bottom: 24px;
+    }
+
+    .title-row .project-title {
+      margin-bottom: 0;
+      margin-left: 0;
+    }
+
     /* 作品描述 */
     .project-description {
       font-size: 16px;
@@ -509,6 +523,100 @@
         padding: 8px 12px;
       }
     }
+
+    /* 竖屏模式 - 隐藏顶部导航 */
+    @media (orientation: portrait) {
+      .navbar {
+        display: none !important;
+      }
+
+      .container {
+        padding: 80px 0 100px;
+      }
+
+      .expand-button {
+        display: inline-flex !important;
+      }
+    }
+
+    /* 展开按钮样式 */
+    .expand-button {
+      display: none !important;
+      position: relative !important;
+      z-index: 9999 !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5) !important;
+      color: #000000 !important;
+      padding: 8px 24px !important;
+      border-radius: 50px !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      margin-left: 20px;
+      vertical-align: middle;
+    }
+
+    .expand-button:hover {
+      background: rgba(255, 255, 255, 1) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    /* 竖屏模式标题行样式 */
+    @media (orientation: portrait) {
+      .title-row {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    /* 继续上滑提示 - 竖屏模式 */
+    .scroll-hint {
+      display: none;
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      text-align: center;
+      color: #ffffff;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .scroll-hint.visible {
+      opacity: 1;
+    }
+
+    .scroll-hint-arrow {
+      width: 24px;
+      height: 24px;
+      margin: 8px auto 0;
+      animation: bounce-up 1.5s infinite;
+    }
+
+    @keyframes bounce-up {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-8px);
+      }
+      60% {
+        transform: translateY(-4px);
+      }
+    }
+
+    @media (orientation: portrait) {
+      .scroll-hint {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
@@ -552,8 +660,10 @@
         <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/moaqdkho-6hvry7d.webp" alt="Shoemate Logo" class="logo-image">
       </div>
       
-      <!-- 作品标题 -->
-      <h1 class="project-title">海尔智能共享洗鞋机</h1>
+      <!-- 作品标题区域 -->
+      <div class="title-row">
+        <h1 class="project-title">海尔智能共享洗鞋机</h1>
+      </div>
       
       <!-- 作品描述 -->
       <p class="project-description">
@@ -610,6 +720,14 @@
     </div>
   </div>
   
+  <!-- 继续上滑提示 -->
+  <div class="scroll-hint" id="scrollHint">
+    <span>继续上滑查看该项目</span>
+    <svg class="scroll-hint-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 5L12 19M12 5L6 11M12 5L18 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  
   <script>
     // 页面加载动画
     document.addEventListener('DOMContentLoaded', () => {
@@ -654,15 +772,26 @@
         
         isScrolling = true;
         
+        // 检测是否为竖屏模式
+        const isPortrait = window.matchMedia('(orientation: portrait)').matches && window.innerWidth <= 900;
+        
         if (e.deltaY > 0) {
           // 向下滚动 - 下一页
           if (currentPage < pages.length - 1) {
             window.location.href = pages[currentPage + 1];
           }
         } else {
-          // 向上滚动 - 上一页
-          if (currentPage > 0) {
-            window.location.href = pages[currentPage - 1];
+          // 向上滚动
+          if (isPortrait) {
+            // 竖屏模式下：向上滚动跳转到下一页（shoemate-page1.html）
+            if (currentPage < pages.length - 1) {
+              window.location.href = pages[currentPage + 1];
+            }
+          } else {
+            // 横屏模式：向上滚动跳转到上一页
+            if (currentPage > 0) {
+              window.location.href = pages[currentPage - 1];
+            }
           }
         }
 
@@ -670,6 +799,34 @@
         setTimeout(() => {
           isScrolling = false;
         }, 500);
+      });
+    </script>
+    
+    <!-- 竖屏模式滚动检测 -->
+    <script>
+      const scrollHint = document.getElementById('scrollHint');
+      let scrollHintShown = false;
+      
+      function isMobilePortrait() {
+        return window.matchMedia('(orientation: portrait)').matches && window.innerWidth <= 900;
+      }
+      
+      window.addEventListener('scroll', function() {
+        if (!isMobilePortrait()) return;
+        
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        
+        // 当滚动到距离底部100px以内时显示提示
+        if (scrollTop + clientHeight >= scrollHeight - 100) {
+          scrollHint.classList.add('visible');
+          scrollHintShown = true;
+        } else {
+          if (scrollHintShown) {
+            scrollHint.classList.remove('visible');
+          }
+        }
       });
     </script>
   </body>
