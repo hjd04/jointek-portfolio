@@ -314,6 +314,57 @@
       }
     }
 
+    @media (orientation: portrait) {
+      .bg-image {
+        opacity: 0 !important;
+      }
+    }
+
+    /* 背景图片 */
+    .bg-image {
+      position: fixed;
+      z-index: 100;
+      opacity: 0.15;
+      transition: opacity 0.5s ease;
+      object-fit: cover;
+    }
+
+    .bg-image:hover {
+      opacity: 1;
+    }
+
+    .bg-image-1 {
+      top: 5%;
+      left: 5%;
+      width: 220px;
+      height: auto;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    .bg-image-2 {
+      bottom: 5%;
+      right: 5%;
+      width: 260px;
+      height: auto;
+      animation: float 14s ease-in-out infinite reverse;
+    }
+
+    .bg-image-3 {
+      bottom: 5%;
+      left: 5%;
+      width: 200px;
+      height: auto;
+      animation: float 16s ease-in-out infinite;
+    }
+
+    .bg-image-4 {
+      top: 5%;
+      right: 5%;
+      width: 240px;
+      height: auto;
+      animation: float 18s ease-in-out infinite reverse;
+    }
+
     /* 装饰性元素 */
     .decoration {
       position: fixed;
@@ -355,6 +406,12 @@
   <div class="decoration decoration-1"></div>
   <div class="decoration decoration-2"></div>
 
+  <!-- 背景图片 -->
+  <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/shoemate_index.webp" alt="" class="bg-image bg-image-1">
+  <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/qispace_index.webp" alt="" class="bg-image bg-image-2">
+  <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/emsky_index.webp" alt="" class="bg-image bg-image-3">
+  <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/mrxa_index.webp" alt="" class="bg-image bg-image-4">
+
   <div class="container">
     <main class="hero">
       <h1 class="hero-title">
@@ -362,7 +419,7 @@
       </h1>
       
       <p class="hero-description">
-        工业设计 | 3D设计 | 视觉设计 | 汽车可视化设计<br>
+        工业设计 | 3D设计 | 汽车可视化设计<br>
       </p>
       
       <div class="hero-cta">
