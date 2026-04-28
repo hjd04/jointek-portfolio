@@ -284,6 +284,19 @@
       color: var(--text-dark);
     }
 
+    /* 自我介绍 */
+    .about-me-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-me-content p {
+      line-height: 1.8;
+      color: var(--text-color);
+      font-size: 15px;
+    }
+
     /* 教育背景 */
     .education-grid {
       display: flex;
@@ -631,7 +644,7 @@
       <aside class="sidebar">
         <div class="profile-card" onclick="window.location.href='contents.html'">
           <div class="avatar-wrapper">
-            <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/半身白底像.webp" alt="黄俊德" class="photo">
+            <img src=".figma/image/半身白底像.jpg" alt="黄俊德" class="photo">
             <div class="avatar-hint">点击进入作品目录</div>
           </div>
           <h2 class="profile-name">黄俊德 · Jointek</h2>
@@ -651,6 +664,18 @@
       </aside>
       
       <div class="content-area">
+        <section class="section-card">
+          <div class="section-header">
+            <div class="section-icon">👤</div>
+            <h3 class="section-title">自我介绍</h3>
+          </div>
+          <div class="about-me-content">
+            <p>华东师范大学设计学院硕士在读，拥有 6 段实习经历，积累了扎实的实战经验。设计能力获国际认可，曾获红点奖、MUSE、A'Design 等顶尖国际设计奖项，另获国家级创新创业及设计类竞赛奖 30 余项，同时拥有多项省校级荣誉。</p>
+            <p>具备 5 年工业产品设计、建模渲染、动画制作及视频制作经验，熟练使用各种AIGC工具，空间想象与艺术创作能力突出。深耕三维设计与产品设计领域，能熟练运用各类设计软件完成产品外观及部分结构设计，独立制作高质量产品渲染效果图与动画。</p>
+            <p>了解产品开发全流程，参与设计多款落地产品，累计完成工业产品设计、效果图渲染、三维动画等设计项目百余项。曾获 10 余项外观设计专利和实用新型专利授权，具备从设计到落地的完整执行能力。</p>
+          </div>
+        </section>
+        
         <section class="section-card">
           <div class="section-header">
             <div class="section-icon">🎓</div>
