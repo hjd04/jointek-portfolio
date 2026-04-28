@@ -111,6 +111,7 @@
       gap: 20px;
       width: 100%;
       margin-bottom: 0;
+      margin-left: 10px;
     }
 
     .logo-image {
@@ -231,6 +232,7 @@
       justify-content: flex-start;
       gap: 32px;
       width: 100%;
+      margin-left: 10px;
     }
 
     .link-item {
@@ -421,36 +423,46 @@
     }
 
     @media (max-width: 600px) {
-      .back-button {
-        top: 20px;
-        left: 20px;
-        font-size: 16px;
+      .container {
+        padding: 70px 0;
       }
       
-      .back-arrow {
-        width: 20px;
-        height: 20px;
+      .content-area {
+        padding: 0 16px;
       }
       
-      .navbar {
-        padding: 12px 20px;
+      .project-title {
+        font-size: clamp(16px, 4vw, 20px);
       }
       
-      .nav-container {
-        gap: 12px;
+      .project-description {
+        font-size: clamp(10px, 1.5vw, 13px);
       }
       
-      .nav-item {
-        font-size: 12px;
-        padding: 6px 12px;
+      .tags-area {
+        gap: 8px;
+      }
+      
+      .tag {
+        font-size: clamp(9px, 1.5vw, 12px);
+        padding: 5px 10px;
+      }
+      
+      .awards-area {
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .project-info-item {
+        font-size: clamp(10px, 1.5vw, 12px);
+      }
+      
+      .award-item {
+        font-size: clamp(10px, 1.5vw, 12px);
       }
       
       .logo-image {
         width: 150px;
-      }
-      
-      .project-title {
-        font-size: 22px;
       }
       
       .link-area {
@@ -467,6 +479,41 @@
 
       .container {
         padding: 80px 0 100px;
+      }
+
+      .content-area {
+        padding: 0 16px;
+      }
+
+      .logo-area {
+        padding-left: 10px;
+      }
+
+      .project-title {
+        font-size: clamp(16px, 4vw, 20px);
+      }
+
+      .project-description {
+        font-size: clamp(10px, 1.5vw, 13px);
+      }
+
+      .tag {
+        font-size: clamp(9px, 1.5vw, 12px);
+        padding: 5px 10px;
+      }
+
+      .awards-area {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 10px;
+      }
+
+      .project-info-item {
+        font-size: clamp(10px, 1.5vw, 12px);
+      }
+
+      .award-item {
+        font-size: clamp(10px, 1.5vw, 12px);
       }
     }
 
