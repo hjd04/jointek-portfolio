@@ -53,7 +53,7 @@
       min-height: 100vh;
       display: flex;
       align-items: flex-start;
-      padding: 150px 0;
+      padding: 250px 0;
     }
 
     .content-area {
@@ -89,16 +89,58 @@
     }
 
     .jointek-title {
-      font-family: "AION Type", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
       font-size: 72px;
       font-weight: 400;
-      background: linear-gradient(180deg, #83fff1 26.44%, #0089e9 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
       margin-bottom: 32px;
       margin-left: 10px;
       letter-spacing: 0;
+    }
+
+    .jointek-title-img {
+      width: auto;
+      height: 72px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 1600px) {
+      .jointek-title {
+        font-size: 64px;
+      }
+
+      .jointek-title-img {
+        height: 64px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .jointek-title {
+        font-size: 56px;
+      }
+
+      .jointek-title-img {
+        height: 56px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .jointek-title {
+        font-size: 48px;
+      }
+
+      .jointek-title-img {
+        height: 48px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .jointek-title {
+        font-size: 36px;
+      }
+
+      .jointek-title-img {
+        height: 36px;
+      }
     }
 
     .tags-area {
@@ -235,10 +277,6 @@
       .project-title {
         font-size: 32px;
       }
-      
-      .jointek-title {
-        font-size: 64px;
-      }
 
       .tag {
         font-size: 13px;
@@ -258,10 +296,6 @@
         font-size: 28px;
       }
       
-      .jointek-title {
-        font-size: 56px;
-      }
-
       .tag {
         font-size: 13px;
       }
@@ -289,10 +323,6 @@
       
       .project-title {
         font-size: 24px;
-      }
-
-      .jointek-title {
-        font-size: 48px;
       }
 
       .tags-area {
@@ -339,7 +369,7 @@
       }
 
       .container {
-        padding: 80px 0 100px;
+        padding: 180px 0 100px;
       }
     }
 
@@ -441,7 +471,9 @@
       
       <h1 class="project-title">其他作品</h1>
       
-      <p class="jointek-title">Jointek</p>
+      <p class="jointek-title">
+        <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/Jointek.webp" alt="Jointek" class="jointek-title-img">
+      </p>
       
       <div class="tags-area">
         <div class="tag">建模渲染</div>

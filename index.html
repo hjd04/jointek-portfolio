@@ -71,15 +71,37 @@
     .hero-title {
       font-size: 120px;
       font-weight: 700;
-      font-family: 'AION Type', 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
       margin-bottom: 24px;
       text-align: center;
-      letter-spacing: 2px;
       animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-title-img {
+      width: auto;
+      height: 120px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* 响应式 - 保持标题大小比例 */
+    @media (max-width: 900px) {
+      .hero-title {
+        font-size: 56px;
+      }
+
+      .hero-title-img {
+        height: 56px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 42px;
+      }
+
+      .hero-title-img {
+        height: 42px;
+      }
     }
 
     /* 副标题 */
@@ -218,10 +240,6 @@
 
     /* 响应式设计 */
     @media (max-width: 900px) {
-      .hero-title {
-        font-size: 56px;
-      }
-
       .button-container {
         flex-direction: column;
         align-items: center;
@@ -241,10 +259,6 @@
     @media (max-width: 600px) {
       .container {
         padding: 40px 30px;
-      }
-
-      .hero-title {
-        font-size: 42px;
       }
 
       .hero-subtitle {
@@ -280,7 +294,9 @@
   <div class="background-animation"></div>
   
   <div class="container">
-    <h1 class="hero-title">Portfolio</h1>
+    <h1 class="hero-title">
+      <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/Portfolio.webp" alt="Portfolio" class="hero-title-img">
+    </h1>
     <a href="resume.html" class="hero-subtitle">华东师范大学 - 黄俊德</a>
     
     <div class="button-container">
