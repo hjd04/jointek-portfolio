@@ -586,12 +586,30 @@
       transform: translateY(-2px) !important;
     }
 
+    /* 竖屏模式主图样式 */
+    .portrait-hero-image {
+      display: none;
+      width: 75%;
+      margin: 0 auto 30px;
+    }
+
+    .portrait-hero-image .hero-img {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
     /* 竖屏模式标题行样式 */
     @media (orientation: portrait) {
       .title-row {
         flex-direction: row;
         align-items: center;
         gap: 10px;
+      }
+
+      .portrait-hero-image {
+        display: block;
       }
     }
 
@@ -678,6 +696,11 @@
 
     
     <div class="content-area">
+      <!-- 竖屏模式下的主图 -->
+      <div class="portrait-hero-image">
+        <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/shoemate_index.webp" alt="Shoemate" class="hero-img">
+      </div>
+      
       <!-- Logo区域 -->
       <div class="logo-area">
         <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/moaqdkho-6hvry7d.webp" alt="Shoemate Logo" class="logo-image">

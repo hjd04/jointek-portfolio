@@ -581,6 +581,26 @@
         pointer-events: auto;
       }
     }
+
+    /* 竖屏模式主图样式 */
+    .portrait-hero-image {
+      display: none;
+      width: 75%;
+      margin: 0 auto 30px;
+    }
+
+    .portrait-hero-image .hero-img {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    @media (orientation: portrait) {
+      .portrait-hero-image {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
@@ -621,6 +641,11 @@
   
   <div class="container">
     <div class="content-area">
+      <!-- 竖屏模式下的主图 -->
+      <div class="portrait-hero-image">
+        <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/mrxa_index.webp" alt="MRXA" class="hero-img">
+      </div>
+      
       <!-- Logo区域 -->
       <div class="logo-area">
         <img src="https://cdn.jsdelivr.net/gh/hjd04/jointek.github.io@main/img/mobgmx0y-m2m78cx.webp" alt="MRXA Logo" class="logo-image">
